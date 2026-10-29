@@ -20,3 +20,17 @@ jobs:
       - uses: astral-sh/setup-uv@v10.0.1
       - run: make install
       - run: make test
+  whitespace:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      # No trailing whitespace or missing final newline. LICENSES/ holds verbatim license texts.
+      - run: git diff --check "$(git hash-object -t tree /dev/null)" HEAD -- . ':!LICENSES'
+  links:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      # Offline: checks relative links between files, never the network, so it can't flake.
+      - uses: lycheeverse/lychee-action@v2
+        with:
+          args: --offline --no-progress './**/*.md'

@@ -33,5 +33,5 @@ format:  ## Fix formatting and any auto-fixable lint
 	uv run ruff format .
 	uv run ruff check --fix .
 
-test:  ## Run the tests. Needs no credentials and no workspace
-	uv run pytest
+test:  ## Run the tests with coverage. Needs no credentials and no workspace
+	uv run pytest --cov=genie_app_workshop --cov-report=term-missing

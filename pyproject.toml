@@ -13,6 +13,7 @@ dev = [
   "pytest>=9.0",
   "pyright>=1.1.411",
   "ruff>=0.16",
+  "pytest-cov>=6",
 ]
 
 # Resolve from public PyPI so the lockfile works on public CI runners and for any cloner,
