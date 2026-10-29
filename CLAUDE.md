@@ -2,6 +2,9 @@
 
 Workshop project for building with Databricks Genie.
 
+Layout, commands and constraints live in `AGENTS.md`; all of it applies here. This file adds
+the session protocol and dev standards.
+
 ## Living docs (read in order at session start)
 1. `checkpoint.md` — where the last session left off
 2. `tasks.md` — in progress, next, backlog, done
