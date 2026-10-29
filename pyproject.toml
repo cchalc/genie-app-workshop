@@ -16,13 +16,6 @@ dev = [
   "pytest-cov>=6",
 ]
 
-# Resolve from public PyPI so the lockfile works on public CI runners and for any cloner,
-# whatever default index a developer's own uv config sets. Behind a mirror: see `make lock`.
-[[tool.uv.index]]
-name = "pypi"
-url = "https://pypi.org/simple"
-default = true
-
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"

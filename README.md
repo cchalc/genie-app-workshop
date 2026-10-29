@@ -16,8 +16,9 @@ make install     # uv sync, including dev tools
 ```
 
 Per-developer secrets and overrides go in `.envrc.local`, which is gitignored.
-If your network only reaches PyPI through a mirror, set `PYPI_MIRROR`, `UV_DEFAULT_INDEX` and
-`UV_FROZEN=1` there as described above the `lock` target in the [`Makefile`](Makefile).
+uv uses whatever index your own uv config sets, a corporate PyPI proxy included. If you're
+behind one, add `export UV_FROZEN=1` there so everyday syncs don't rewrite the public
+`uv.lock`; see the comment above `install` in the [`Makefile`](Makefile).
 
 ## Usage
 

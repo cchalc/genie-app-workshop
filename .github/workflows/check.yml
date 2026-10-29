@@ -4,6 +4,10 @@ on:
     branches: [main]
   pull_request:
 
+# Fail instead of silently re-locking when uv.lock is stale, so the committed lock is what's checked.
+env:
+  UV_LOCKED: "1"
+
 jobs:
   # The same gate developers and agents run locally (see CLAUDE.md).
   lint:
@@ -11,8 +15,9 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - uses: astral-sh/setup-uv@v10.0.1
+      - run: uv lock --check   # committed uv.lock matches pyproject.toml
       - run: make install
-      - run: make lint
+      - run: make lint         # includes check-lock: public PyPI hosts only
   test:
     runs-on: ubuntu-latest
     steps:

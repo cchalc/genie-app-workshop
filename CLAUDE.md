@@ -37,8 +37,11 @@ short mid-task, write the checkpoint first, then continue.
   (one venv per checkout, so worktrees never share one). Run `direnv allow` once.
 - `uv add <pkg>` for deps, then `make lock`; `uv run <cmd>` to run. Never `pip install`
   outside the venv.
+- uv resolves through the developer's own index config (here, the Databricks PyPI proxy in
+  `~/.config/uv/uv.toml`, with `UV_FROZEN=1` in `.envrc.local`). Don't pin an index in
+  `pyproject.toml` or export `UV_DEFAULT_INDEX`.
 - `uv.lock` must reference only public PyPI (`pypi.org`, `files.pythonhosted.org`), or CI and
-  cloners can't install. `pyproject.toml` pins that index; behind a mirror, `make lock`
-  resolves through `PYPI_MIRROR` and rewrites the URLs. Never commit a lock with mirror URLs.
+  cloners can't install. `make lock` re-locks and rewrites proxy URLs to the identical public
+  files; `make lint` runs `check-lock`, which fails on any other host.
 - Secrets and per-developer overrides go in `.envrc.local` (gitignored). Never commit
   credentials, workspace hosts, or tokens.
