@@ -14,7 +14,6 @@ Rolling work list. Updated each session.
 ## Backlog
 
 - [ ] Branch protection on `main` requiring the `lint` and `test` checks (setup-ci).
-- [ ] Choose a license (license-choice) if the repo is ever shared or made public.
 
 ## Done (recent)
 

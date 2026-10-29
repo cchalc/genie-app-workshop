@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: LicenseRef-Databricks
+# Derived from the Databricks FDE starter template; modified for genie-app-workshop. See NOTICE.
 version: 2
 updates:
   # Grouped so a week of updates arrives as two pull requests rather than twenty.

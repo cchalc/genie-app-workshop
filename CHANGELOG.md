@@ -10,3 +10,5 @@ All notable user-visible changes to this project are documented here. The format
   CI running the same gate, scaffolded from the FDE starter template.
 - Dev standards for contributors and coding agents: `CLAUDE.md`, the ai-kitchen `core` and
   `bespoke` plugins, and an out-of-source uv venv via `.envrc`.
+- MIT license for the project, with the files derived from the FDE starter template kept under
+  the Databricks License, as listed in `NOTICE`.

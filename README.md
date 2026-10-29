@@ -41,4 +41,6 @@ the same `make lint` and `make test`. Record user-visible changes in
 
 ## License
 
-No license yet. This is a private repo and the code is not licensed for redistribution.
+[MIT](LICENSE) © 2026 Christopher Chalcraft, except for the files derived from the Databricks
+FDE starter template. Those stay under the [Databricks License](LICENSES/LicenseRef-Databricks.txt);
+[`NOTICE`](NOTICE) lists them.

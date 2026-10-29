@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: LicenseRef-Databricks
+# Derived from the Databricks FDE starter template; modified for genie-app-workshop. See NOTICE.
 .DEFAULT_GOAL := help
 .PHONY: help install lock lint format test
 

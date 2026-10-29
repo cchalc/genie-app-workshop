@@ -1,3 +1,5 @@
+<!-- SPDX-License-Identifier: LicenseRef-Databricks -->
+<!-- Derived from the Databricks FDE starter template; modified for genie-app-workshop. See NOTICE. -->
 # Agent guide
 
 A Python package with tests, started from the FDE starter template with no app, jobs, or bundle.

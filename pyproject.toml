@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: LicenseRef-Databricks
+# Derived from the Databricks FDE starter template; modified for genie-app-workshop. See NOTICE.
 [project]
 name = "genie-app-workshop"
 version = "0.1.0"

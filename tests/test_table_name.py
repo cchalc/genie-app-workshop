@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: LicenseRef-Databricks
+# Derived from the Databricks FDE starter template; modified for genie-app-workshop. See NOTICE.
 import pytest
 
 from genie_app_workshop import table_name
