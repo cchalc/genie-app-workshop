@@ -151,7 +151,6 @@ activemq-data/
 
 # Environments
 .env
-.envrc
 .venv
 env/
 venv/
@@ -218,3 +217,9 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Per-developer overrides sourced by the committed .envrc
+.envrc.local
+
+# Claude Code per-user settings (the shared .claude/settings.json IS committed)
+.claude/settings.local.json
