@@ -16,12 +16,15 @@ make install     # uv sync, including dev tools
 ```
 
 Per-developer secrets and overrides go in `.envrc.local`, which is gitignored.
+If your network only reaches PyPI through a mirror, set `PYPI_MIRROR`, `UV_DEFAULT_INDEX` and
+`UV_FROZEN=1` there as described above the `lock` target in the [`Makefile`](Makefile).
 
 ## Usage
 
 ```bash
 make lint        # ruff format check, ruff, pyright
-make test        # pytest; needs no credentials and no workspace
+make test        # pytest with coverage; needs no credentials and no workspace
+make lock        # re-lock dependencies against public PyPI after editing pyproject.toml
 make format      # apply formatting and auto-fixable lint
 make help        # list targets
 ```

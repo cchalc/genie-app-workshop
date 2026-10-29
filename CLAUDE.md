@@ -35,6 +35,10 @@ short mid-task, write the checkpoint first, then continue.
 ## Python
 - Out-of-source venv at `~/.virtualenvs/genie-app-workshop`, set by the committed `.envrc`
   (one venv per checkout, so worktrees never share one). Run `direnv allow` once.
-- `uv add <pkg>` for deps; `uv run <cmd>` to run. Never `pip install` outside the venv.
+- `uv add <pkg>` for deps, then `make lock`; `uv run <cmd>` to run. Never `pip install`
+  outside the venv.
+- `uv.lock` must reference only public PyPI (`pypi.org`, `files.pythonhosted.org`), or CI and
+  cloners can't install. `pyproject.toml` pins that index; behind a mirror, `make lock`
+  resolves through `PYPI_MIRROR` and rewrites the URLs. Never commit a lock with mirror URLs.
 - Secrets and per-developer overrides go in `.envrc.local` (gitignored). Never commit
   credentials, workspace hosts, or tokens.
