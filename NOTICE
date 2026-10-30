@@ -1,0 +1,22 @@
+genie-app-workshop
+Copyright (c) 2026 Christopher Chalcraft
+
+This repository is licensed under the MIT License (see LICENSE), except for the files
+listed below.
+
+The files below were derived from the Databricks FDE starter template
+(reusable_ip/projects/dabs/repo_template), Copyright (2026) Databricks, Inc., and were
+modified for this project. They remain licensed under the Databricks License
+(LICENSES/LicenseRef-Databricks.txt), not the MIT License:
+
+  .github/dependabot.yml
+  .github/workflows/freshness.yml
+  .python-version
+  AGENTS.md
+  Makefile
+  pyproject.toml
+  src/genie_app_workshop/__init__.py
+  tests/test_table_name.py
+
+Each of these files (except .python-version, which cannot carry comments) has a header
+stating that it was modified. New files and new code added by this project are MIT.

@@ -1,0 +1,14 @@
+{
+  "extraKnownMarketplaces": {
+    "ai-kitchen": {
+      "source": {
+        "source": "github",
+        "repo": "cchalc/ai-kitchen"
+      }
+    }
+  },
+  "enabledPlugins": {
+    "core@ai-kitchen": true,
+    "bespoke@ai-kitchen": true
+  }
+}

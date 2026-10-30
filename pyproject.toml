@@ -1,0 +1,50 @@
+# SPDX-License-Identifier: LicenseRef-Databricks
+# Derived from the Databricks FDE starter template; modified for genie-app-workshop. See NOTICE.
+[project]
+name = "genie-app-workshop"
+version = "0.1.0"
+description = "Workshop project for building with Databricks Genie"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = []
+
+[dependency-groups]
+dev = [
+  "pytest>=9.0",
+  "pyright>=1.1.411",
+  "ruff>=0.16",
+  "pytest-cov>=6",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/genie_app_workshop"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+# Notebooks carry injected globals and magic commands that do not parse as Python.
+builtins = ["dbutils", "spark", "display"]
+extend-exclude = ["notebooks"]
+
+[tool.ruff.lint]
+select = ["E", "W", "F", "I", "B", "UP", "SIM", "C4", "RUF"]
+ignore = ["E501"]  # line length is the formatter's job
+
+[tool.ruff.format]
+quote-style = "double"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+addopts = "-q --strict-markers --strict-config"
+xfail_strict = true
+filterwarnings = ["error"]
+
+[tool.pyright]
+include = ["src", "tests"]
+pythonVersion = "3.12"
+typeCheckingMode = "standard"
