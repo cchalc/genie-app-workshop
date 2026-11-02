@@ -1,0 +1,30 @@
+# SPDX-License-Identifier: LicenseRef-Databricks
+# Derived from the Databricks FDE starter template; modified for genie-app-workshop. See NOTICE.
+resources:
+  apps:
+    genie_app:
+      name: genie-app-workshop
+      description: FastAPI app that asks a Genie space questions
+      # The bundle root, not ../app: the app imports the package in src/, and the platform
+      # installs it (with its dependencies) from pyproject.toml and uv.lock via `uv sync`.
+      source_code_path: ..
+      # Command and env live here rather than in an app.yaml, which would have to sit at the
+      # repo root. The port comes from the platform.
+      config:
+        command:
+          - uvicorn
+          - app.backend.main:app
+          - --host
+          - 0.0.0.0
+          - --port
+          - $DATABRICKS_APP_PORT
+        env:
+          - name: GENIE_SPACE_ID
+            value_from: genie-space
+      resources:
+        - name: genie-space
+          description: The Genie space the app asks
+          genie_space:
+            name: genie-space
+            space_id: ${var.genie_space_id}
+            permission: CAN_RUN

@@ -1,7 +1,14 @@
 # SPDX-License-Identifier: LicenseRef-Databricks
 # Derived from the Databricks FDE starter template; modified for genie-app-workshop. See NOTICE.
 .DEFAULT_GOAL := help
-.PHONY: help install lock check-lock lint format test
+.PHONY: help install lock check-lock lint format test dev validate deploy run
+
+# Bundle commands need a profile you choose: PROFILE=<name>. There is no default, so the CLI's
+# own default profile never gets used by accident. In CI, auth comes from env vars, and passing
+# --profile there looks for a file that is absent.
+TARGET ?= dev
+PROFILE_FLAG = $(if $(filter true,$(GITHUB_ACTIONS)),,--profile $(or $(PROFILE),$(error set PROFILE=<databricks-cli-profile>)))
+BUNDLE_FLAGS = $(PROFILE_FLAG) --target $(TARGET)
 
 help:  ## Show this help
 	@grep -hE '^[a-z-]+:.*?##' $(MAKEFILE_LIST) | awk 'BEGIN{FS=":.*?## "};{printf "  \033[36m%-10s\033[0m %s\n", $$1, $$2}'
@@ -38,4 +45,18 @@ format:  ## Fix formatting and any auto-fixable lint
 	uv run ruff check --fix .
 
 test:  ## Run the tests with coverage. Needs no credentials and no workspace
-	uv run pytest --cov=genie_app_workshop --cov-report=term-missing
+	uv run pytest --cov=genie_app_workshop --cov=app --cov-report=term-missing
+
+# Locally the SDK authenticates with your CLI profile; deployed, with the app's service principal.
+dev:  ## Run the app on :8000. Needs PROFILE and GENIE_SPACE_ID
+	DATABRICKS_CONFIG_PROFILE=$(or $(PROFILE),$(error set PROFILE=<databricks-cli-profile>)) \
+	  uv run uvicorn app.backend.main:app --reload --port 8000
+
+validate:  ## Validate the bundle for TARGET (default dev). Needs PROFILE
+	databricks bundle validate $(BUNDLE_FLAGS)
+
+deploy:  ## Deploy the bundle for TARGET. Needs PROFILE
+	databricks bundle deploy $(BUNDLE_FLAGS)
+
+run:  ## Start the deployed app for TARGET. Needs PROFILE
+	databricks bundle run genie_app $(BUNDLE_FLAGS)

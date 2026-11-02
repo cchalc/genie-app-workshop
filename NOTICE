@@ -14,9 +14,11 @@ modified for this project. They remain licensed under the Databricks License
   .python-version
   AGENTS.md
   Makefile
+  app/AGENTS.md
+  app/backend/main.py
+  databricks.yml
   pyproject.toml
-  src/genie_app_workshop/__init__.py
-  tests/test_table_name.py
+  resources/app.yml
 
 Each of these files (except .python-version, which cannot carry comments) has a header
 stating that it was modified. New files and new code added by this project are MIT.

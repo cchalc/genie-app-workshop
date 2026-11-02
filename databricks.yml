@@ -1,0 +1,30 @@
+# SPDX-License-Identifier: LicenseRef-Databricks
+# Derived from the Databricks FDE starter template; modified for genie-app-workshop. See NOTICE.
+bundle:
+  name: genie_app_workshop
+  databricks_cli_version: ">= 1.0.0"
+
+include:
+  - resources/**/*.yml
+
+variables:
+  genie_space_id:
+    description: >-
+      Genie space the app asks. No default: set it per developer, e.g.
+      `export BUNDLE_VAR_genie_space_id=...` in .envrc.local, or --var in CI.
+
+# No host here. It comes from your CLI profile, or DATABRICKS_HOST in CI.
+targets:
+  dev:
+    mode: development
+    default: true
+
+  prod:
+    mode: production
+    # Keyed to the deploying identity so prod has one copy rather than one per person. Set
+    # the service principal below and that identity stops depending on who ran the deploy.
+    workspace:
+      root_path: /Workspace/Users/${workspace.current_user.userName}/.bundle/${bundle.name}/${bundle.target}
+    # SETUP: your own service principal, so prod does not run as whoever deployed it.
+    # run_as:
+    #   service_principal_name: 00000000-0000-0000-0000-000000000000
