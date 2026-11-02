@@ -218,6 +218,9 @@ __marimo__/
 # Streamlit
 .streamlit/secrets.toml
 
+# Databricks bundle state, written by `databricks bundle validate/deploy`
+/.databricks/
+
 # Per-developer overrides sourced by the committed .envrc
 .envrc.local
 

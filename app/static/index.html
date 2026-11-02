@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>genie-app-workshop</title>
+    <style>
+      body { font-family: system-ui, sans-serif; max-width: 40rem; margin: 2rem auto; padding: 0 1rem; }
+      textarea { width: 100%; min-height: 4rem; font: inherit; }
+      pre { background: #f4f4f4; padding: 0.75rem; overflow-x: auto; white-space: pre-wrap; }
+    </style>
+  </head>
+  <body>
+    <h1>Ask Genie</h1>
+    <form id="ask">
+      <textarea name="question" placeholder="What were last month's top products?" required></textarea>
+      <button type="submit">Ask</button>
+    </form>
+    <p id="answer"></p>
+    <pre id="sql" hidden></pre>
+    <script>
+      const form = document.getElementById("ask");
+      const answer = document.getElementById("answer");
+      const sql = document.getElementById("sql");
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        const button = form.querySelector("button");
+        button.disabled = true;
+        answer.textContent = "Asking…";
+        sql.hidden = true;
+        try {
+          const res = await fetch("/api/genie/ask", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ question: form.question.value }),
+          });
+          const body = await res.json();
+          if (!res.ok) throw new Error(typeof body.detail === "string" ? body.detail : res.statusText);
+          answer.textContent = body.text;
+          if (body.sql) {
+            sql.textContent = body.sql;
+            sql.hidden = false;
+          }
+        } catch (err) {
+          answer.textContent = `Error: ${err.message}`;
+        } finally {
+          button.disabled = false;
+        }
+      });
+    </script>
+  </body>
+</html>

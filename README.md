@@ -2,9 +2,10 @@
 
 Workshop project for building with Databricks Genie.
 
-A Python package with tests, started from the FDE starter template as a package-only project
-(no Databricks App, jobs, or bundle yet). `table_name` in `src/genie_app_workshop/` is the
-template's example and is meant to be replaced with real workshop code.
+A Databricks App, deployed with a bundle, that asks a Genie space questions. The app is FastAPI
+serving one page; its Genie call goes through `GenieClient` in `src/genie_app_workshop/`, which
+the tests replace, so they need no workspace. It started from the app half of the FDE starter
+template, without the template's React frontend or jobs.
 
 ## Install
 
@@ -30,9 +31,30 @@ make format      # apply formatting and auto-fixable lint
 make help        # list targets
 ```
 
-To add a Databricks App or scheduled jobs later, bring back that half of the FDE starter
-template (`app/` + `resources/app.yml`, or `notebooks/` + `resources/jobs/`) with a
-`databricks.yml` bundle.
+### Run the app
+
+The app asks one Genie space, whose ID you supply. Nothing workspace-specific is committed: put
+these in `.envrc.local`.
+
+```bash
+export GENIE_SPACE_ID=<space-id>               # read by the app when run locally
+export BUNDLE_VAR_genie_space_id=<space-id>    # read by the bundle on validate and deploy
+```
+
+Every target that touches a workspace needs `PROFILE`, a Databricks CLI profile you choose.
+There is no default.
+
+```bash
+make dev PROFILE=<profile>       # uvicorn on http://localhost:8000, using your CLI credentials
+make validate PROFILE=<profile>  # databricks bundle validate (TARGET=dev by default)
+make deploy PROFILE=<profile>    # deploy the bundle
+make run PROFILE=<profile>       # start the deployed app
+```
+
+Once deployed, the app runs as its own service principal, which the bundle grants `CAN_RUN` on
+the Genie space. That principal also needs access to the space's SQL warehouse and tables.
+`TARGET=prod` deploys to the `prod` target, which first needs a service principal set where
+`databricks.yml` is marked `SETUP`.
 
 ## Contributing
 

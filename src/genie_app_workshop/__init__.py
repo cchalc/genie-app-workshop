@@ -1,13 +1,5 @@
-# SPDX-License-Identifier: LicenseRef-Databricks
-# Derived from the Databricks FDE starter template; modified for genie-app-workshop. See NOTICE.
-"""genie-app-workshop package. `table_name` is the template example; replace it with real code."""
+"""genie-app-workshop: a Databricks App that asks a Genie space questions."""
 
-__all__ = ["table_name"]
+from genie_app_workshop.genie import GenieAnswer, GenieClient, WorkspaceGenie, ask
 
-
-def table_name(catalog: str, schema: str, table: str) -> str:
-    """Fully qualified Unity Catalog name."""
-    for part, value in (("catalog", catalog), ("schema", schema), ("table", table)):
-        if not value:
-            raise ValueError(f"{part} is required")
-    return f"{catalog}.{schema}.{table}"
+__all__ = ["GenieAnswer", "GenieClient", "WorkspaceGenie", "ask"]

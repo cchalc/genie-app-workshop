@@ -6,7 +6,11 @@ version = "0.1.0"
 description = "Workshop project for building with Databricks Genie"
 readme = "README.md"
 requires-python = ">=3.12"
-dependencies = []
+dependencies = [
+    "databricks-sdk>=0.159",
+    "fastapi>=0.141",
+    "uvicorn[standard]>=0.52",
+]
 
 [dependency-groups]
 dev = [
@@ -14,6 +18,7 @@ dev = [
   "pyright>=1.1.411",
   "ruff>=0.16",
   "pytest-cov>=6",
+  "httpx2>=2.16",
 ]
 
 [build-system]
@@ -39,12 +44,12 @@ quote-style = "double"
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-pythonpath = ["src"]
+pythonpath = ["src", "."]  # "." so tests import app.backend
 addopts = "-q --strict-markers --strict-config"
 xfail_strict = true
 filterwarnings = ["error"]
 
 [tool.pyright]
-include = ["src", "tests"]
+include = ["src", "tests", "app/backend"]
 pythonVersion = "3.12"
 typeCheckingMode = "standard"
